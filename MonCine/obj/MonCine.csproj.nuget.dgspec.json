@@ -1,20 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\imezianetani\\source\\repos\\TP0214E\\MonCine\\MonCine.csproj": {}
+    "D:\\session6\\conceptionQualite\\tp2\\TP214EH2022\\MonCine\\MonCine.csproj": {}
   },
   "projects": {
-    "C:\\Users\\imezianetani\\source\\repos\\TP0214E\\MonCine\\MonCine.csproj": {
+    "D:\\session6\\conceptionQualite\\tp2\\TP214EH2022\\MonCine\\MonCine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\imezianetani\\source\\repos\\TP0214E\\MonCine\\MonCine.csproj",
+        "projectUniqueName": "D:\\session6\\conceptionQualite\\tp2\\TP214EH2022\\MonCine\\MonCine.csproj",
         "projectName": "MonCine",
-        "projectPath": "C:\\Users\\imezianetani\\source\\repos\\TP0214E\\MonCine\\MonCine.csproj",
-        "packagesPath": "C:\\Users\\imezianetani\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\imezianetani\\source\\repos\\TP0214E\\MonCine\\obj\\",
+        "projectPath": "D:\\session6\\conceptionQualite\\tp2\\TP214EH2022\\MonCine\\MonCine.csproj",
+        "packagesPath": "C:\\Users\\1939379\\.nuget\\packages\\",
+        "outputPath": "D:\\session6\\conceptionQualite\\tp2\\TP214EH2022\\MonCine\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\imezianetani\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\1939379\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -63,7 +68,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
