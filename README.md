@@ -2,3 +2,4 @@
 
 - Antoine Bédard
 - Anthony Levesque
+- Mélina Hotte
