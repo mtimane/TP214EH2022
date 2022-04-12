@@ -15,7 +15,10 @@ namespace MonCine.Data
         {
             mongoDBClient = client ?? OuvrirConnexion();
             database = ConnectDatabase();
+
+            AddDefaultFilms();
         }
+
         private IMongoClient OuvrirConnexion()
         {
             MongoClient dbClient = null;
@@ -27,6 +30,7 @@ namespace MonCine.Data
             {
                 Console.WriteLine("Impossible de se connecter à la base de données " + ex.Message, "Erreur");
             }
+
             return dbClient;
         }
 
@@ -41,8 +45,10 @@ namespace MonCine.Data
             {
                 Console.WriteLine("Impossible de se connecter à la base de données " + ex.Message, "Erreur");
             }
+
             return db;
         }
+
         public List<Abonne> ReadAbonnes()
         {
             var abonnes = new List<Abonne>();
@@ -54,10 +60,13 @@ namespace MonCine.Data
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Impossible d'obtenir la collection " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                MessageBox.Show("Impossible d'obtenir la collection " + ex.Message, "Erreur", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
+
             return abonnes;
         }
+
+       
     }
 }

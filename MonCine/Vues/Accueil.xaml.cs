@@ -40,11 +40,12 @@ namespace MonCine.Vues
             this.NavigationService.Navigate(frmProjections);
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void BtnFilm_Click(object sender, RoutedEventArgs e)
         {
-            FFilms frmFilms = new FFilms();
+            FFilms frmFilms = new FFilms(dal);
 
             this.NavigationService.Navigate(frmFilms);
         }
+
     }
 }

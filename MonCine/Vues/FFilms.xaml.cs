@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MonCine.Data;
 
 namespace MonCine.Vues
 {
@@ -17,7 +18,7 @@ namespace MonCine.Vues
     /// </summary>
     public partial class FFilms : Page
     {
-        public FFilms()
+        public FFilms(DAL pDal)
         {
             InitializeComponent();
         }
