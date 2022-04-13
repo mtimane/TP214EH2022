@@ -26,13 +26,54 @@ namespace MonCine.Data
         private int NbProjection { get; set; }
 
 
-        public Film(string pName)
+        public Film(string pName, List<Categorie> pCategories = null)
         {
             Name = pName;
+            Notes = GenerateNotes();
+            Categories = pCategories ?? GenerateCategories();
         }
+
+
+        #region DEV
+
+        private List<int> GenerateNotes()
+        {
+            Random random = new Random();
+            List<int> notes = new List<int>();
+            for (int i = 0; i < 5; i++)
+            {
+                notes.Add(random.Next(1, 11));
+            }
+
+            return notes;
+        }
+
+        private List<Categorie> GenerateCategories()
+        {
+            Random random = new Random();
+
+            List<String> enumNames = typeof(Categorie).GetEnumNames().ToList();
+            List<Categorie> categories = new List<Categorie>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                int indiceCat = random.Next(enumNames.Count);
+                Categorie cat = (Categorie)indiceCat;
+
+                if (!categories.Contains(cat))
+                {
+                    categories.Add(cat);
+                }
+            }
+
+            return categories;
+        }
+
+        #endregion
 
         public double CalculerMoyennesNotes()
         {
+            Notes ??= new List<int>();
             int taille = Notes.Count > 0 ? Notes.Count : 1;
             return Notes.Sum(x => x) / taille;
         }
@@ -59,7 +100,7 @@ namespace MonCine.Data
 
         public override string ToString()
         {
-            return $"{Name}";
+            return $"{Name} - ({ CalculerMoyennesNotes() }) - {Categories?.Count}";
         }
     }
 }

@@ -43,6 +43,9 @@
         <TextBox x:Name="NameField" 
                  Grid.Row="1" Grid.Column="4" Width="150" Grid.ColumnSpan="2"></TextBox>
 
+        <TextBlock Grid.Row="2" Grid.Column="3" Text="Catégorie : "></TextBlock>
+        <ComboBox x:Name="CategoryCombobox"
+            Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"></ComboBox>
 
 
         <!-- Action -->

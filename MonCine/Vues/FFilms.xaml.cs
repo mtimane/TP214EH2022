@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,8 +27,7 @@ namespace MonCine.Vues
         {
             InitializeComponent();
             Dal = pDal;
-            Films = Dal.ReadFilm();
-            LstFilms.ItemsSource = Films;
+           
 
             InitialConfiguration();
         }
@@ -37,6 +37,16 @@ namespace MonCine.Vues
         /// </summary>
         private void InitialConfiguration()
         {
+            Films = Dal.ReadFilm();
+            LstFilms.ItemsSource = Films;
+
+            List<String> categories = typeof(Categorie).GetEnumNames().ToList();
+
+            foreach (string cat in categories)
+            {
+                CategoryCombobox.Items.Add(cat);
+            }
+
             BtnDelete.IsEnabled = false;
             BtnUpdate.IsEnabled = false;
             NameField.Text = "";
@@ -86,9 +96,7 @@ namespace MonCine.Vues
                 var result = await Dal.AddFilm(film);
                 if (result)
                 {
-                    
                     RefreshItems();
-
                     MessageBox.Show($"Le film {film.Name} a été crée avec succès !", "Création de film", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 }
@@ -99,12 +107,16 @@ namespace MonCine.Vues
 
         private Film CreateFilmToAdd()
         {
+            // Recuperer les champs
             string nom = NameField.Text;
+            Categorie categorie = (Categorie)CategoryCombobox.SelectedIndex;
 
-            Film film = new Film(nom);
-
-
+            // Vider les champs
             NameField.Text = "";
+            CategoryCombobox.SelectedIndex = -1;
+
+
+            Film film = new Film(nom,new List<Categorie>(){categorie} );
 
             return film;
         }

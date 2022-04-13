@@ -4,11 +4,16 @@ using System.Text;
 
 namespace MonCine.Data
 {
-    public  enum Categorie
+    public enum Categorie
     {
         Action,
         Comedie,
         Horreur,
-        Drame
+        Drame,
+        Mystere,
+        Romance,
+        Thriller,
+        Fantasie,
+        Documentaire
     }
 }
