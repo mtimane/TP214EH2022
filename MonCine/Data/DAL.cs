@@ -126,6 +126,26 @@ namespace MonCine.Data
         }
 
 
+        public async Task<bool> AddFilm(Film pFilm)
+        {
+            if (pFilm is null)
+            {
+                throw new ArgumentNullException("pFilm", "Le film ne peut pas être null");
+            }
+
+            try
+            {
+                var collection = database.GetCollection<Film>("Films");
+                await collection.InsertOneAsync(pFilm);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Impossible d'ajouter le film {pFilm.Name} dans la collection {ex.Message}", "Erreur d'ajout", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                throw;
+            }
+            return true;
+        }
 
         public async Task<bool> UpdateFilm(Film pFilm)
         {
@@ -147,6 +167,29 @@ namespace MonCine.Data
 
             return true;
         }
+
+        public async Task<bool> DeleteFilm(Film pFilm)
+        {
+            if (pFilm is null)
+            {
+                throw new ArgumentNullException("pFilm", "Le film ne peut pas être null");
+            }
+
+            try
+            {
+                var collection = database.GetCollection<Film>("Films");
+                await collection.DeleteOneAsync(Builders<Film>.Filter.Eq(x=>x.Id , pFilm.Id));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Impossible de mettre à jour le film {pFilm.Name} dans la collection {ex.Message}", "Erreur de mise à jour", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw;
+            }
+
+            return true;
+        }
+
+
         #endregion
     }
 }
