@@ -9,10 +9,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace MonCine.Data
 {
-    internal class Film
+    public class Film
     {
-        [BsonId]
-        public ObjectId Id { get; set; }
+        [BsonId] public ObjectId Id { get; set; }
         public string Name { get; set; }
         public List<Categorie> Categories { get; set; }
         public DateTime DateSortie { get; set; }
@@ -22,9 +21,9 @@ namespace MonCine.Data
         public List<Acteur> Acteurs { get; set; }
         public List<Realisateur> Realisateurs { get; set; }
         private List<int> Notes { get; set; }
-        [Range(0,2, ErrorMessage = "Le nombre de projection d'un film ne peut pas dépasser 2 projections pas années")]
-        private int NbProjection { get; set; }
 
+        [Range(0, 2, ErrorMessage = "Le nombre de projection d'un film ne peut pas dépasser 2 projections pas années")]
+        private int NbProjection { get; set; }
 
 
         public Film(string pName)
@@ -34,7 +33,8 @@ namespace MonCine.Data
 
         public double CalculerMoyennesNotes()
         {
-            return Notes.Sum(x => x) / Notes.Count;
+            int taille = Notes.Count > 0 ? Notes.Count : 1;
+            return Notes.Sum(x => x) / taille;
         }
 
         public void Noter(int note)
@@ -57,11 +57,9 @@ namespace MonCine.Data
             return NbProjection <= 1;
         }
 
-
-
-
-
-
-
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
     }
 }
