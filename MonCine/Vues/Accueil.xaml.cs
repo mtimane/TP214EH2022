@@ -19,16 +19,15 @@ namespace MonCine.Vues
     /// </summary>
     public partial class Accueil : Page
     {
-        private DAL dal;
         public Accueil()
         {
             InitializeComponent();
-            dal = new DAL();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            FAbonnes frmAbonnes = new FAbonnes(dal);
+            // TODO: A changer
+            FAbonnes frmAbonnes = new FAbonnes(new DALFilm());
 
             this.NavigationService.Navigate(frmAbonnes);
         }
@@ -42,7 +41,8 @@ namespace MonCine.Vues
 
         private void BtnFilm_Click(object sender, RoutedEventArgs e)
         {
-            FFilms frmFilms = new FFilms(dal);
+            DALFilm dalFilm = new DALFilm();
+            FFilms frmFilms = new FFilms(dalFilm);
 
             this.NavigationService.Navigate(frmFilms);
         }

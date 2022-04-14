@@ -20,10 +20,10 @@ namespace MonCine.Vues
     public partial class FFilms : Page
     {
         private List<Film> Films { get; set; }
-        private DAL Dal { get; set; }
+        private DALFilm Dal { get; set; }
         
 
-        public FFilms(DAL pDal)
+        public FFilms(DALFilm pDal)
         {
             InitializeComponent();
             Dal = pDal;
@@ -37,19 +37,24 @@ namespace MonCine.Vues
         /// </summary>
         private void InitialConfiguration()
         {
-            Films = Dal.ReadFilm();
+            Films = Dal.ReadItems();
             LstFilms.ItemsSource = Films;
 
+            PopulateCategory();
+
+            BtnDelete.IsEnabled = false;
+            BtnUpdate.IsEnabled = false;
+            NameField.Text = "";
+        }
+
+        private void PopulateCategory()
+        {
             List<String> categories = typeof(Categorie).GetEnumNames().ToList();
 
             foreach (string cat in categories)
             {
                 CategoryCombobox.Items.Add(cat);
             }
-
-            BtnDelete.IsEnabled = false;
-            BtnUpdate.IsEnabled = false;
-            NameField.Text = "";
         }
 
 
@@ -58,7 +63,7 @@ namespace MonCine.Vues
         /// </summary>
         private void RefreshItems()
         {
-            LstFilms.ItemsSource = Dal.ReadFilm();
+            LstFilms.ItemsSource = Dal.ReadItems();
         }
 
         /// <summary>
@@ -93,7 +98,7 @@ namespace MonCine.Vues
             else
             {
                 Film film = CreateFilmToAdd();
-                var result = await Dal.AddFilm(film);
+                var result = await Dal.AddItem(film);
                 if (result)
                 {
                     RefreshItems();
@@ -121,6 +126,7 @@ namespace MonCine.Vues
             return film;
         }
 
+
         // Update
         private async void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -134,7 +140,7 @@ namespace MonCine.Vues
 
                 Film film = (Film)LstFilms.SelectedItem;
                 UpdateFilm(film);
-                var result = await Dal.UpdateFilm(film);
+                var result = await Dal.UpdateItem(film);
 
                 if (result)
                 {
@@ -151,6 +157,9 @@ namespace MonCine.Vues
             pFilm.Name = NameField.Text;
         }
 
+
+
+
         // Delete
         private async void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
@@ -163,7 +172,7 @@ namespace MonCine.Vues
             {
 
                 Film film = (Film)LstFilms.SelectedItem;
-                var result = await Dal.DeleteFilm(film);
+                var result = await Dal.DeleteItem(film);
 
                 if (result)
                 {

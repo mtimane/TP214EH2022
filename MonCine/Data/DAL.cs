@@ -9,17 +9,16 @@ using System.Xaml;
 
 namespace MonCine.Data
 {
-    public class DAL
+    public abstract class DAL
     {
-        private IMongoClient mongoDBClient;
-        private IMongoDatabase database;
+        protected IMongoClient mongoDBClient;
+        protected IMongoDatabase database;
 
         public DAL(IMongoClient client = null)
         {
             mongoDBClient = client ?? OuvrirConnexion();
             database = ConnectDatabase();
 
-            AddDefaultFilms();
         }
 
         private IMongoClient OuvrirConnexion()
@@ -52,6 +51,8 @@ namespace MonCine.Data
             return db;
         }
 
+
+
         public List<Abonne> ReadAbonnes()
         {
             var abonnes = new List<Abonne>();
@@ -71,125 +72,13 @@ namespace MonCine.Data
         }
 
 
-        #region Films
-
-        /// <summary>
-        /// Récupère l'ensemble des films de la BD
-        /// </summary>
-        /// <returns>Liste de films</returns>
-        public List<Film> ReadFilm()
-        {
-            List<Film> films = new List<Film>();
-
-            try
-            {
-                var collection = database.GetCollection<Film>("Films");
-                films = collection.Aggregate().ToList();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Impossible d'obtenir la collection " + ex.Message, "Erreur", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
-
-            return films;
-        }
 
 
-        /// <summary>
-        /// Populer la collections films au départ
-        /// </summary>
-        private async void AddDefaultFilms()
-        {
-            List<Film> films = new List<Film>
-            {
-                new Film("Film 1"),
-                new Film("Film 2"),
-                new Film("Film 3")
-            };
-
-            try
-            {
-                var collection = database.GetCollection<Film>("Films");
-                if (collection.CountDocuments(Builders<Film>.Filter.Empty) <= 0)
-                {
-                    await collection.InsertManyAsync(films);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Impossible d'ajouter des films dans la collection " + ex.Message, "Erreur",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                throw;
-            }
-        }
 
 
-        public async Task<bool> AddFilm(Film pFilm)
-        {
-            if (pFilm is null)
-            {
-                throw new ArgumentNullException("pFilm", "Le film ne peut pas être null");
-            }
-
-            try
-            {
-                var collection = database.GetCollection<Film>("Films");
-                await collection.InsertOneAsync(pFilm);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Impossible d'ajouter le film {pFilm.Name} dans la collection {ex.Message}", "Erreur d'ajout", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                throw;
-            }
-            return true;
-        }
-
-        public async Task<bool> UpdateFilm(Film pFilm)
-        {
-            if (pFilm is null)
-            {
-                throw new ArgumentNullException("pFilm", "Le film ne peut pas être null");
-            }
-
-            try
-            {
-                var collection = database.GetCollection<Film>("Films");
-                await collection.ReplaceOneAsync(x => x.Id == pFilm.Id, pFilm);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Impossible de mettre à jour le film {pFilm.Name} dans la collection {ex.Message}", "Erreur de mise à jour", MessageBoxButton.OK, MessageBoxImage.Error);
-                throw;
-            }
-
-            return true;
-        }
-
-        public async Task<bool> DeleteFilm(Film pFilm)
-        {
-            if (pFilm is null)
-            {
-                throw new ArgumentNullException("pFilm", "Le film ne peut pas être null");
-            }
-
-            try
-            {
-                var collection = database.GetCollection<Film>("Films");
-                await collection.DeleteOneAsync(Builders<Film>.Filter.Eq(x=>x.Id , pFilm.Id));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Impossible de mettre à jour le film {pFilm.Name} dans la collection {ex.Message}", "Erreur de mise à jour", MessageBoxButton.OK, MessageBoxImage.Error);
-                throw;
-            }
-
-            return true;
-        }
 
 
-        #endregion
+
+
     }
 }
