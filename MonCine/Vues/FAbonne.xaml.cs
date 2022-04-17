@@ -104,5 +104,10 @@ namespace MonCine.Vues
 
 
         }
+
+        private void BtnOffrirReconpense_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -29,20 +29,9 @@ namespace MonCine.Vues
             Dal = dal;
             LstAbonnes.ItemsSource = abonnes;
 
-            InitialConfiguration();
         }
 
 
-
-        /// <summary>
-        /// Définit l'état inital du form
-        /// </summary>
-        private void InitialConfiguration()
-        {
-            BtnDelete.IsEnabled = false;
-            BtnUpdate.IsEnabled = false;
-            NameField.Text = "";
-        }
 
         private void BtnReturn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
