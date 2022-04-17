@@ -30,7 +30,6 @@ namespace MonCine.Vues
             LstAbonnes.ItemsSource = abonnes;
 
             InitialConfiguration();
-
         }
 
 
@@ -50,13 +49,19 @@ namespace MonCine.Vues
             this.NavigationService.Navigate(new Accueil());
         }
 
-
+        
         private void LstAbonnes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Abonne abonne = (Abonne)LstAbonnes.SelectedItem;
-            NameField.Text = abonne?.Username;
+            //Abonne abonne = (Abonne)LstAbonnes.SelectedItem;
+            //NameField.Text = abonne?.Username;
 
-            BtnDelete.IsEnabled = abonne != null;
+            //BtnDelete.IsEnabled = abonne != null;
+
+            Abonne unAbonne = LstAbonnes.SelectedItem as Abonne;
+
+            FAbonne fabonne;
+            fabonne = new FAbonne(Dal, unAbonne);
+            this.NavigationService.Navigate(fabonne);
         }
 
 
@@ -86,7 +91,7 @@ namespace MonCine.Vues
 
         private void UpdateAbonne(Abonne pAbonne)
         {
-            pAbonne.Username = NameField.Text;
+            //pAbonne.Username = NameField.Text;
         }
 
         /// <summary>
@@ -94,7 +99,7 @@ namespace MonCine.Vues
         /// </summary>
         private void UpdateItems()
         {
-            LstAbonnes.ItemsSource = Dal.ReadAbonnes();
+           // LstAbonnes.ItemsSource = Dal.ReadAbonnes();
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
@@ -105,6 +110,11 @@ namespace MonCine.Vues
         public override string ToString()
         {
             return $"{Name}";
+        }
+
+        private void NameField_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

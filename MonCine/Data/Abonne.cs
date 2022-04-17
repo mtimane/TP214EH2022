@@ -41,7 +41,7 @@ namespace MonCine.Data
             return false;
         }
 
-        public bool EstPropriaitaire()
+        public bool EstPrioriaitaire()
         {
             return false;
         }
