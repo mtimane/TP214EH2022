@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using MongoDB.Driver;
 using System.Windows;
+using System.Xaml;
 
 namespace MonCine.Data
 {
-    public class DAL
+    public abstract class DAL
     {
-        private IMongoClient mongoDBClient;
-        private IMongoDatabase database;
+        protected IMongoClient mongoDBClient;
+        protected IMongoDatabase database;
 
         public DAL(IMongoClient client = null)
         {
             mongoDBClient = client ?? OuvrirConnexion();
             database = ConnectDatabase();
+
         }
+
         private IMongoClient OuvrirConnexion()
         {
             MongoClient dbClient = null;
@@ -27,6 +32,7 @@ namespace MonCine.Data
             {
                 Console.WriteLine("Impossible de se connecter à la base de données " + ex.Message, "Erreur");
             }
+
             return dbClient;
         }
 
@@ -41,8 +47,12 @@ namespace MonCine.Data
             {
                 Console.WriteLine("Impossible de se connecter à la base de données " + ex.Message, "Erreur");
             }
+
             return db;
         }
+
+
+
         public List<Abonne> ReadAbonnes()
         {
             var abonnes = new List<Abonne>();
@@ -54,10 +64,12 @@ namespace MonCine.Data
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Impossible d'obtenir la collection " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                MessageBox.Show("Impossible d'obtenir la collection " + ex.Message, "Erreur", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
+
             return abonnes;
         }
+
     }
 }
