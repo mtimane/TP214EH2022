@@ -35,7 +35,7 @@ jobs: #liste des actions qui seront déclenchées par le workflow
         run: dotnet test
         
       - name: Publish
-        run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win -p:PublishSingleFile=true --no-build
+        run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
 
       #crée une 'release' sur votre repo github 
       - uses: actions/create-release@v1
@@ -50,5 +50,5 @@ jobs: #liste des actions qui seront déclenchées par le workflow
       - uses: csexton/release-asset-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: MonCine/bin/Release/netcoreapp3.1/win/publish/*.exe #path vers votre exécutable
+          pattern: MonCine/bin/Release/netcoreapp3.1/win-x64/publish/*.exe #path vers votre exécutable
           release-url: ${{ steps.create_release.outputs.upload_url }}
